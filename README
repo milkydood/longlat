@@ -1,0 +1,30 @@
+Usage: ACCESS_KEY=foo ./longlat.py 127.0.0.1
+
+Returned data looks like this:
+
+  Latitude:34.0453 Longitude:-118.2413
+
+From a security perspective, it would be a bad idea to hard-code the API Access key in here,
+hence reading it from the environment. These are viewable via /proc/self/environ, but are
+considered fairly secure.
+
+
+   Exit status:
+       0      if OK,
+
+       1      if IP address not supplied as the only arg
+
+       2      if ACCESS_KEY environment variable is not supplied
+
+       3      if an error status was returned by the API
+
+       4      if longitude is not present in the API response
+
+       5      if latitude is not present in the API response
+
+Building the docker container, within the directory of the checked-out repo:
+docker build -t longlat .
+
+Running the container:
+
+docker run -e ACCESS_KEY=foobar -t longlat 10.1.1.1
